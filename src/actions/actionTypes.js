@@ -1,0 +1,3 @@
+export const POSTS_GET = "POSTS_GET";
+export const POSTS_GET_SUCCESS = "POSTS_GET_SUCCESS";
+export const POSTS_GET_ERROR = "POSTS_GET_ERROR";

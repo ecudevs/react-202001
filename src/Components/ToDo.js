@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "./common/Button";
+import Input from "./common/Input";
 
 export default class ToDo extends Component {
   state = {
@@ -47,23 +48,32 @@ export default class ToDo extends Component {
     const { tarea, tareas } = this.state;
 
     return (
-      <div>
-        <label htmlFor="tarea">Tarea</label>
-        <input
-          name="descripcion"
-          value={tarea.descripcion}
-          onChange={event => this.changeInput(event)}
-        />
-        <input
-          name="hora"
-          value={tarea.hora}
-          onChange={event => this.changeInput(event)}
-        />
-        <Button
-          onClick={() => this.agregarTarea()}
-          text={tarea.index !== undefined ? "Editar" : "Agregar"}
-          //   loading={this.state.loading}
-        />
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            {/* <label htmlFor="tarea">Tarea</label> */}
+            <Input
+              name="descripcion"
+              value={tarea.descripcion}
+              onChange={event => this.changeInput(event)}
+            />
+          </div>
+          <div className="col">
+            <Input
+              name="hora"
+              value={tarea.hora}
+              onChange={event => this.changeInput(event)}
+            />
+          </div>
+          <div className="col">
+            <Button
+              onClick={() => this.agregarTarea()}
+              text={tarea.index !== undefined ? "Editar" : "Agregar"}
+              //   loading={this.state.loading}
+            />
+          </div>
+        </div>
+
         <ol>
           {tareas.map((value, index) => {
             return (
