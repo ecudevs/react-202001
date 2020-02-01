@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { filterPost } from "../actions/postActions";
+import { connect } from "react-redux";
+import Input from "./common/Input";
 
-export default function Navbar() {
+function Navbar({ posts, filterPost }) {
+  const [inputValue, setInputValue] = useState("");
+
+  const changeInput = event => {
+    setInputValue(event.target.value);
+    filterPost(posts, event.target.value);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
@@ -33,14 +43,23 @@ export default function Navbar() {
           </li>
         </ul>
         <form className="form-inline my-2 my-lg-0">
-          <input
-            className="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
+          <Input value={inputValue} onChange={changeInput} />
         </form>
       </div>
     </nav>
   );
 }
+
+const mapStateToProps = ({ postState }) => {
+  return {
+    posts: postState.posts
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    filterPost: (posts, texto) => filterPost(dispatch, posts, texto)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

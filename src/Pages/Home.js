@@ -12,6 +12,8 @@ function Home({ loading, posts, getPosts, like }) {
     like(posts, index);
   };
 
+  // const mostrarLog = index => console.log(index);
+
   return (
     <div className="container">
       <PostList posts={posts} onLike={onLike} />
@@ -20,9 +22,10 @@ function Home({ loading, posts, getPosts, like }) {
 }
 
 const mapStateToProps = ({ postState }) => {
+  debugger;
   return {
     loading: postState.loading,
-    posts: postState.posts
+    posts: postState.postFilter
   };
 };
 
@@ -30,6 +33,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getPosts: () => dispatch({ type: "GET_POSTS" }),
     like: (posts, index) => {
+      debugger;
       return likePost(dispatch, posts, index);
     }
   };

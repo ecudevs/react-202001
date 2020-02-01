@@ -34,11 +34,7 @@ export default function Post({
             <Avatar aria-label="recipe">{nombreUsuario[0]}</Avatar>
           )
         }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
+        action={<IconButton aria-label="settings">X</IconButton>}
         title={nombreUsuario}
         // subheader="September 14, 2016"
       />
