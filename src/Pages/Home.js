@@ -1,39 +1,77 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PostList from "../Components/PostList";
+import PostForm from "../Components/PostForm";
 import { likePost } from "../actions/postActions";
 
 // let posts = [];
 
-function Home({ loading, posts, getPosts, like }) {
+function Home({
+  loading,
+  post,
+  posts,
+  getPosts,
+  like,
+  changePost,
+  savePost,
+  updatePost
+}) {
+  useEffect(() => {
+    getPosts();
+  }, []);
+
   const onLike = index => {
-    debugger;
     like(posts, index);
+  };
+
+  const onSelect = index => {
+    debugger;
+    changePost(posts[index]);
+  };
+
+  const onSubmitPost = post => {
+    if (!post._id) {
+      savePost({
+        ...post,
+        usuario: { nombreUsuario: "thianlopezz", fotoUsuario: "foto" }
+      });
+    } else {
+      debugger;
+      updatePost({ ...post });
+    }
   };
 
   // const mostrarLog = index => console.log(index);
 
   return (
     <div className="container">
-      <PostList posts={posts} onLike={onLike} />
+      <PostForm
+        loading={loading}
+        post={post}
+        onChange={changePost}
+        onSubmit={onSubmitPost}
+      />
+      <PostList posts={posts} onLike={onSelect} />
     </div>
   );
 }
 
 const mapStateToProps = ({ postState }) => {
-  debugger;
   return {
     loading: postState.loading,
-    posts: postState.postFilter
+    posts: postState.postFilter,
+    post: postState.post
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getPosts: () => dispatch({ type: "GET_POSTS" }),
+    savePost: post => dispatch({ type: "POST_SAVE", post }),
+    updatePost: post => dispatch({ type: "POST_UPDATE", post }),
+    changePost: post => dispatch({ type: "POST_CHANGE", post }),
     like: (posts, index) => {
-      debugger;
       return likePost(dispatch, posts, index);
     }
   };

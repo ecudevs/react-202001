@@ -5,7 +5,7 @@ export default function Input({ name, value, onChange }) {
     <input
       className="form-control"
       name={name}
-      value={value}
+      value={value || ""}
       onChange={onChange}
     />
   );

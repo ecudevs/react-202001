@@ -52,6 +52,7 @@ app.get("/posts/:_id", (req, res) => {
 });
 
 app.post("/posts", (req, res) => {
+  console.log(req.body);
   PostController.insertPost(req.body, res);
 });
 
